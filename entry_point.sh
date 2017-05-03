@@ -24,9 +24,11 @@ NODE_PID=$!
 
 trap shutdown SIGTERM SIGINT
 
+sleep 10
+
 for SUITE in "$@"
 do
-  java -jar support/selenese-runner.jar "$SUITE" --config "support/config" --baseurl "$SELENSE_BASE_URL" --driver remote --remote-url "http://127.0.0.1:4444/wd/hub"
+  java -jar support/selenese-runner.jar "$SUITE" --config "support/config" --baseurl "$SELENSE_BASE_URL" --driver remote --remote-url "http://127.0.0.1:4444/wd/hub" --remote-browser firefox
 done
 
 shutdown

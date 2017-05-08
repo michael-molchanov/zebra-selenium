@@ -6,4 +6,4 @@ docker run --rm -v "$PWD:$PWD" --workdir "$PWD" -e SCREEN_WIDTH="1920" -e SCREEN
 
 URL - base site url, e.g https://www.drupal.org
 
-SUITE - suite name or wildcard for find linux command. Multiple wildcards allowed.
+SUITE - suite name

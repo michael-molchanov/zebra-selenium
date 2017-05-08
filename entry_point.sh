@@ -2,11 +2,12 @@
 
 source /opt/bin/functions.sh
 
+EXIT_CODE=0
 export GEOMETRY="$SCREEN_WIDTH""x""$SCREEN_HEIGHT""x""$SCREEN_DEPTH"
 
 function shutdown {
   kill -s SIGTERM $NODE_PID
-  wait $NODE_PID
+  sleep 10
 }
 
 if [ ! -z "$SE_OPTS" ]; then
@@ -26,10 +27,10 @@ trap shutdown SIGTERM SIGINT
 
 sleep 10
 
-for SUITE in "$@"
-do
-  find ./ -maxdepth 1 -iname "$SUITE" -type f | xargs java -jar support/selenese-runner.jar --config "support/config" --baseurl "$SELENESE_BASE_URL" --driver remote --remote-url "http://127.0.0.1:4444/wd/hub" --remote-browser firefox
-done
+SUITE="$1"
+java -jar support/selenese-runner.jar --config "support/config" --baseurl "$SELENESE_BASE_URL" --driver remote --remote-url "http://127.0.0.1:4444/wd/hub" --remote-browser firefox "$SUITE"
+EXIT_CODE=$?
 
 shutdown
-exit
+
+exit $EXIT_CODE

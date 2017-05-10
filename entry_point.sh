@@ -28,7 +28,7 @@ trap shutdown SIGTERM SIGINT
 sleep 10
 
 SUITE="$1"
-java -jar support/selenese-runner.jar --config "support/config" --baseurl "$SELENESE_BASE_URL" --driver remote --remote-url "http://127.0.0.1:4444/wd/hub" --remote-browser firefox "$SUITE"
+java -jar /opt/selenese-runner/selenese-runner.jar --config "support/config" --baseurl "$SELENESE_BASE_URL" --driver remote --remote-url "http://127.0.0.1:4444/wd/hub" --remote-browser firefox "$SUITE"
 EXIT_CODE=$?
 
 shutdown

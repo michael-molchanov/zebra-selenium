@@ -15,6 +15,9 @@ RUN apk --update --no-cache add \
 
 RUN git clone https://github.com/fimash/selenese-runner-java.git ./
 
+COPY index.html src/main/resources/jp/vmi/html/result/index.html
+COPY result.html src/main/resources/jp/vmi/html/result/result.html
+
 RUN mvn -P package
 
 # Selenium + Selenese.

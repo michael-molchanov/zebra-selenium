@@ -27,7 +27,18 @@ LABEL maintainer "Michael Molchanov <mmolchanov@adyax.com>"
 
 USER root
 
+RUN apt-get update -qqy \
+  && apt-get -qqy --no-install-recommends install gettext-base \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+
 COPY --from=builder /opt/selenese-runner/target/selenese-runner.jar /opt/selenese-runner/
 
 COPY entry_point.sh /opt/bin/entry_point.sh
 RUN chmod +x /opt/bin/entry_point.sh
+
+COPY report_index.sh /opt/bin/report_index.sh
+RUN chmod +x /opt/bin/report_index.sh
+
+COPY header.html /opt/report/header.html
+COPY node.html /opt/report/node.html
+COPY footer.html /opt/report/footer.html

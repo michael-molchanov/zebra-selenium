@@ -31,6 +31,8 @@ SUITE="$1"
 java -jar /opt/selenese-runner/selenese-runner.jar --config "support/config" --baseurl "$SELENESE_BASE_URL" --driver remote --remote-url "http://127.0.0.1:4444/wd/hub" --remote-browser firefox "$SUITE"
 EXIT_CODE=$?
 
+/opt/bin/report_index.sh "$PWD/reports"
+
 shutdown
 
 exit $EXIT_CODE

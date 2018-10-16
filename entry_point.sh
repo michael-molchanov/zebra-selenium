@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source /opt/bin/functions.sh
-
 EXIT_CODE=0
 export GEOMETRY="$SCREEN_WIDTH""x""$SCREEN_HEIGHT""x""$SCREEN_DEPTH"
 
@@ -14,11 +12,9 @@ if [ ! -z "$SE_OPTS" ]; then
   echo "appending selenium options: ${SE_OPTS}"
 fi
 
-SERVERNUM=$(get_server_num)
-
 rm -f /tmp/.X*lock
 
-xvfb-run -n $SERVERNUM --server-args="-screen 0 $GEOMETRY -ac +extension RANDR +extension DOUBLE-BUFFER +extension GLX +extension MIT-SHM" \
+xvfb-run -a --server-args="-screen 0 $GEOMETRY -ac +extension RANDR +extension DOUBLE-BUFFER +extension GLX +extension MIT-SHM" \
   java ${JAVA_OPTS} -jar /opt/selenium/selenium-server-standalone.jar \
   ${SE_OPTS} &
 NODE_PID=$!

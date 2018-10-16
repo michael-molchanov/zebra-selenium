@@ -27,9 +27,10 @@ LABEL maintainer "Michael Molchanov <mmolchanov@adyax.com>"
 
 USER root
 
-RUN apt-get update -qqy \
-  && apt-get -qqy --no-install-recommends install gettext-base \
-  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+# Install procps.
+RUN apt-get update \
+  && apt-get -y install wget curl procps gettext-base \
+  && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /opt/selenese-runner/target/selenese-runner.jar /opt/selenese-runner/
 
